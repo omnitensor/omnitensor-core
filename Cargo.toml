@@ -1,0 +1,75 @@
+[package]
+name = "omnitensor-core"
+version = "0.1.0"
+authors = ["OmniTensor Team <contact@omnitensor.io>"]
+edition = "2021"
+description = "Core implementation of the OmniTensor blockchain and AI infrastructure"
+license = "Apache-2.0"
+
+[dependencies]
+# Blockchain and cryptography
+blake2 = "0.10.4"
+ed25519-dalek = "1.0.1"
+libp2p = { version = "0.50.0", features = ["tcp-tokio", "mdns"] }
+parity-scale-codec = { version = "3.2.1", features = ["derive"] }
+sha2 = "0.10.2"
+
+# Concurrency and async
+tokio = { version = "1.25.0", features = ["full"] }
+futures = "0.3.25"
+
+# Serialization
+serde = { version = "1.0.152", features = ["derive"] }
+serde_json = "1.0.93"
+
+# Database
+rocksdb = "0.19.0"
+
+# Logging and error handling
+log = "0.4.17"
+env_logger = "0.10.0"
+thiserror = "1.0.38"
+
+# Configuration
+config = "0.13.3"
+clap = { version = "4.1.4", features = ["derive"] }
+
+# AI-specific
+tch = "0.10.1"  # PyTorch bindings for Rust
+
+[dev-dependencies]
+criterion = "0.4.0"
+mockall = "0.11.3"
+proptest = "1.0.0"
+
+[features]
+default = ["std"]
+std = []
+nightly = ["libp2p/nightly"]
+
+[lib]
+name = "omnitensor_core"
+path = "src/lib.rs"
+
+[[bin]]
+name = "omnitensor"
+path = "src/main.rs"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"
+
+[profile.bench]
+opt-level = 3
+debug = false
+rpath = false
+lto = true
+debug-assertions = false
+codegen-units = 1
+panic = "abort"
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
