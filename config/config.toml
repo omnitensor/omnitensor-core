@@ -1,0 +1,23 @@
+# OmniTensor Core Configuration File
+# This configuration file sets up the OmniTensor core node.
+
+[core]
+network = "mainnet"        # Network can be 'mainnet', 'testnet', or 'devnet'
+log_level = "info"         # Log level: trace, debug, info, warn, error
+
+[consensus]
+validator_count = 21       # Number of validators in the network
+
+[storage]
+database_path = "./data/db" # Path to the database file
+
+[network]
+listen_address = "0.0.0.0:3030"  # Address and port for P2P network
+bootstrap_nodes = [
+    "node1.omnitensor.io:3030",
+    "node2.omnitensor.io:3030",
+    "node3.omnitensor.io:3030"
+]
+
+[security]
+max_peer_connections = 100   # Maximum number of peer connections
